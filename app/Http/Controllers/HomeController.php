@@ -10,7 +10,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $response = Http::get('https://www.commitstrip.com/en/feed/');
+        $response = Http::withOptions(['verify' => false])
+            ->get('https://www.commitstrip.com/en/feed/');
+
         $simpleXml = simplexml_load_string(data: $response->body(), options: LIBXML_NOCDATA);
 
         $firstList = [];
@@ -49,7 +51,7 @@ class HomeController extends Controller
         $doc = new \DomDocument();
 
         foreach ($finalList as $value) {
-            if (isset($value)) {
+            if ($value) {
                 try {
                     $images[] = $this->getImageInPage($doc, $value);
                 } catch (Throwable $ex) {
@@ -65,7 +67,10 @@ class HomeController extends Controller
 
     private function getImageInPage($doc, $link)
     {
-        $doc->loadHTMLFile($link);
+        $response = Http::withOptions(['verify' => false])
+            ->get($link);
+
+        $doc->loadHTML($response->body());
         $xpath = new \DomXpath($doc);
 
         if (str_contains($link, "commitstrip.com")) {
