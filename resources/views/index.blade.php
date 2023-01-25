@@ -66,7 +66,7 @@
             }
 
             h1 {
-                margin: 40px 0;
+                margin: 30px 0;
                 font-size: 30px;
                 text-align: center;
             }
@@ -79,7 +79,15 @@
         </style>
     </head>
     <body class="antialiased">
-        <h1>Stayhere - Coding challenge</h1>
+        <div style="display: flex; flex-direction:column; justify-content:center; align-items:center;">
+            <h1>Stayhere - Coding challenge</h1>
+            <div style="margin: 20px 0;">
+                @for($i=1; $i <= $totalPages; $i++)
+                    <a style="padding: 8px;" href="{{ route('name', ['page' => $i]) }}">{{ $i }}</a>
+                @endfor
+            </div>
+
+        </div>
 
         <div class="gallery cf">
             @foreach ($images as $image)
@@ -88,5 +96,6 @@
             </div>
             @endforeach
         </div>
+
     </body>
 </html>

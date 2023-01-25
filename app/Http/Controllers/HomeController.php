@@ -44,11 +44,23 @@ class HomeController extends Controller
         }
 
 
-        $finalList = array_unique([...$firstList, ...$secondList]);
-        $images = [];
+        $uniqueList = array_unique([...$firstList, ...$secondList]);
+
+        // pagination related logic
+        $limit = 3;
+        $initialPage = (request('page', 1) - 1) * $limit;
+        $totalPages = ceil(count($uniqueList) / $limit);
+
+        for ($i = $initialPage; $i < $initialPage + $limit; $i++) {
+            if (count($uniqueList) - 1 >= $i) {
+                $finalList[] = $uniqueList[$i];
+            }
+        }
 
         libxml_use_internal_errors(true);
         $doc = new \DomDocument();
+
+        $images = [];
 
         foreach ($finalList as $value) {
             if ($value) {
@@ -62,7 +74,7 @@ class HomeController extends Controller
             }
         }
 
-        return view('index', compact('images'));
+        return view('index', compact('images', 'totalPages'));
     }
 
     private function getImageInPage($doc, $link)

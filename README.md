@@ -10,7 +10,7 @@ The past 3 days, i've been trying to improve the run time of the provided source
 
 -   I suggest to use camelCase when declaring variables and function since it's a common practice in `PHP/Laravel` ecosystem.
 
--   I suggest to avoid using the `for` loop since we don't really need the incremental value in this case, inside i used `foreach` because it reduce the number of declared variable and it's more readable than the normal for loop.
+-   I suggest to avoid using the `for` loop unless if we really need the use the incremental value (like pagination), inside i used `foreach` because it reduce the number of declared variable and it's more readable than the normal for loop.
 -   I suggest `Illuminate\Support\Facades\Http` Facade to make http requests instead of plain old curl and php functions. the primary reason why I choose to do so is: The Http facade gives a fluent way to make an HTTP request in an OOP style since where are focusing on writing clean, modern and readable code.
 
 -   in the code below, i took advantage of newest `php8.0` feature which is **named arguments** to avoid setting the value `SimpleXMLElement` to `$class_name` parameter since it is the default value and `options` parameter is a must.
@@ -156,3 +156,9 @@ The past 3 days, i've been trying to improve the run time of the provided source
 <br>
 
 -   **Finally**, i think i coverted all the suggestions i used to improve the runtime of the script, i hope i didn't forget anything. in case i did, you can ask me about it, i will be more than happy to give an anwser to your question.
+
+<br>
+
+## 2.
+
+Since you didn't give much details about this question, i assume that to make this script scale and support thousands of image sources is simply implementing **Pagination**.
